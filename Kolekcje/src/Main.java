@@ -5,11 +5,12 @@ import java.util.Collections;;
 public class Main {
 
 	public static void main(String[] args) {
+		// GIT	
 		// TODO Auto-generated method stub
 
 		// 1) Zadeklaruj ArrayListe intow, dodaj do niej 5 roznych liczb metoda add,
 		// wyswietl cala liste petla for each.
-
+		
 		List lista = new ArrayList();
 		lista.add(1);
 		lista.add(2);
