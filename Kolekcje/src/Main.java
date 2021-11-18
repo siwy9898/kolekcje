@@ -1,16 +1,18 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Collections;;
+import java.util.Collections;
+import java.util.Random;
+import java.util.*;
 
 public class Main {
 
 	public static void main(String[] args) {
-		// GIT	
+		// GIT
 		// TODO Auto-generated method stub
 
 		// 1) Zadeklaruj ArrayListe intow, dodaj do niej 5 roznych liczb metoda add,
 		// wyswietl cala liste petla for each.
-		
+
 		List lista = new ArrayList();
 		lista.add(1);
 		lista.add(2);
@@ -61,7 +63,7 @@ public class Main {
 
 		// 7) Zadeklaruj Liste zmiennych typu double, dodaj do listy 5 liczb rzeczywiste
 		// i wypisz je w kolejnosci rosnacej
-		
+
 		List dable = new ArrayList();
 		dable.add(6.15);
 		dable.add(3.14);
@@ -72,6 +74,39 @@ public class Main {
 		Collections.sort(dable);
 		for (int i = 0; i < dable.size(); i++) {
 			double liczba = (Double) dable.get(i);
+			System.out.println(liczba);
+
+		}
+
+		// Napisz metode ktora uzupelnia losowa iloscia (od 2-8) liczb losowych z
+		// przedziaku 1-10,
+		// wrzucmy te liczby do nowej listy posortujmy ja odwrotnie i zwracamy ta liste
+
+		LinkedList listaLiczb = new LinkedList();
+		Random generator = new Random();
+		int iloscLiczb = 0;
+		iloscLiczb = generator.nextInt(2, 9);
+
+		for (int i = 0; i < iloscLiczb; i++) {
+
+			listaLiczb.add(generator.nextInt(1, 11));
+			int losowa = (Integer) listaLiczb.get(i);
+			System.out.println(losowa);
+
+		}
+
+		System.out.println();
+
+		Collections.sort(listaLiczb);
+		for (int i = 0; i < listaLiczb.size(); i++) {
+			int liczba = (Integer) listaLiczb.get(i);
+			// System.out.println(liczba);
+
+		}
+
+		Collections.reverse(listaLiczb);
+		for (int i = 0; i < listaLiczb.size(); i++) {
+			int liczba = (Integer) listaLiczb.get(i);
 			System.out.println(liczba);
 
 		}
@@ -139,10 +174,6 @@ public class Main {
 	}
 
 }
-
-// Napisz metode ktora uzupelnia losowa iloscia (od 2-8) liczb losowych z
-// przedziaku 1-10,
-// wrzucmy te liczby do nowej listy posortujmy ja odwrotnie i zwracamy ta liste
 
 // Napisz metode ktora jako parametr przyjmuje liste intow oraz inta i zwraca
 // liste intow ktore sa wieksze niz podany jako parametr int
