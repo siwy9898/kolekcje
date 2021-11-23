@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class Main {
 
@@ -16,9 +17,9 @@ public class Main {
 		lista.add(4);
 		lista.add(5);
 
-		List<Integer> listaInt = new ArrayList<>(Arrays.asList(1, 5, 2, 2, 6, 10));
+		List<Integer> listaInt = new ArrayList<>(Arrays.asList(1, 5, 21, 27, 67, 10));
 
-		System.out.println(wiekszeNaLiscie(lista, 2));
+		// System.out.println(wiekszeNaLiscie(lista, 2));
 
 		// 4) Zadeklaruj Liste Stringow, dodaj do niej kolekcje imion Tomek Ania Tomek
 		// Krzys Grzes Tomek metoda addAll, nastepnie usun wszystkich Tomkow z tej listy
@@ -27,33 +28,59 @@ public class Main {
 		List<String> listaImion2 = new ArrayList<>();
 		listaImion2.add("Tomek");
 		listaImion2.add("Ania");
+		listaImion2.add("Ania");
 		listaImion2.add("Tomek");
 		listaImion2.add("Krzysssss");
-		listaImion2.add("Grzes");
+		listaImion2.add("Grzesiek");
 		listaImion2.add("Tomek");
+		listaImion2.add("Tomek");
+		listaImion2.add("Tomek");
+		listaImion2.add("Ania");
+		//listaImion2.add("    ");
+		//listaImion2.add(" ");
+		//listaImion2.add("    ");
 
 		listaImion.addAll(listaImion2);
 
-		listaImion.removeAll(Arrays.asList("Tomek"));
+		// listaImion.removeAll(Arrays.asList("Tomek"));
 
-		for (int i = 0; i < listaImion.size(); i++) {
-			System.out.println(listaImion.get(i));
-		}
+//		for (int i = 0; i < listaImion.size(); i++) {
+//			System.out.println(listaImion.get(i));
+//		}
+//
+//		for (int i = 0; i < lista.size(); i++) {
+//			int liczba = (Integer) lista.get(i);
+//			System.out.println(liczba);
+//
+//		}
+//
+//		for (int i = 0; i < wiekszeOd(lista, 4).size(); i++) {
+//			int liczba = (Integer) wiekszeOd(lista, 4).get(i);
+//			System.out.println(liczba);
+//		} // czy to musi byæ tak pokrêtnie drukowane? czy jest na to prostszy patent?
 
-		for (int i = 0; i < lista.size(); i++) {
-			int liczba = (Integer) lista.get(i);
-			System.out.println(liczba);
+		// System.out.println(sumaListy(lista));
+		// System.out.println(najdluzszeImie(listaImion2));
+		// System.out.println(czyJestImie(listaImion, "Kuba"));
 
-		}
+		List<Integer> intyDoImion = new ArrayList<>();
+		intyDoImion.add(5);
+		intyDoImion.add(4);
+		intyDoImion.add(0);
+		intyDoImion.add(2);
+		intyDoImion.add(1);
+		intyDoImion.add(5);
+		intyDoImion.add(5);
+		intyDoImion.add(5);
+		intyDoImion.add(5);
 
-		for (int i = 0; i < wiekszeOd(lista, 4).size(); i++) {
-			int liczba = (Integer) wiekszeOd(lista, 4).get(i);
-			System.out.println(liczba);
-		} // czy to musi byæ tak pokrêtnie drukowane? czy jest na to prostszy patent?
-
-		System.out.println(sumaListy(lista));
-		System.out.println(najdluzszeImie(listaImion2));
-		System.out.println(czyJestImie(listaImion, "Kuba"));
+		System.out.println(konczySieNa(listaInt, 7));
+		System.out.println(dluzszeOdIParzyste(listaImion2, 3));
+		System.out.println(dlugoscStringow(listaImion2));
+		//System.out.println(dlugoscRownaStringowi(listaImion2, intyDoImion));
+		System.out.println(liczbaWhitespace(listaImion2));
+		System.out.println(ileSamoglosek(listaImion2));
+		System.out.println(IleRazyPowtorzone(listaImion2));
 
 		// 7) Zadeklaruj Liste zmiennych typu double, dodaj do listy 5 liczb rzeczywiste
 		// i wypisz je w kolejnosci rosnacej
@@ -67,7 +94,7 @@ public class Main {
 
 		Collections.sort(dable);
 
-		System.out.println(dable);
+		// System.out.println(dable);
 	}
 
 	// Napisz metode ktora uzupelnia losowa iloscia (od 2-8) liczb losowych z
@@ -241,38 +268,142 @@ public class Main {
 	public static List<Integer> odwrotnaLista(List<Integer> lista) {
 		List<Integer> odwrotna = new ArrayList<>();
 
-		for (int i = lista.size()-1; i >= 0; i--) {
-				odwrotna.add(lista.get(i));
-								
+		for (int i = lista.size() - 1; i >= 0; i--) {
+			odwrotna.add(lista.get(i));
+
 		}
 		return odwrotna;
 	}
-	// Napisz metode ktora odwraca kolejnosc liczb w liscie ktora jest podana jako parametr
-	// metoda ma odwrocic liste, nie ma nic zwracac, nie mozna wykorzystywac innych list/tablic
-	
-	
-	
+	// Napisz metode ktora odwraca kolejnosc liczb w liscie ktora jest podana jako
+	// parametr
+	// metoda ma odwrocic liste, nie ma nic zwracac, nie mozna wykorzystywac innych
+	// list/tablic
+
+	public static void odwrotnaListaBez(List<Integer> lista) {
+
+		Collections.sort(lista, Comparator.reverseOrder());
+
+	}
 	// majac liste intow zwróc liste intow tych ktore te ktore koncza sie na cyfre
 	// podana jako porametr
-	
-	// Wyœwietl ile razy ktorekolwiek imie zosta³o powtórzone Np dla imion ania piotr ania tomek krzys tomek ania program 
-	// powinien wypisac 3, bo byly 3 potworki
-	
-	// Wyswietl ile razy we wszystkich imionach by³a u¿yta samog³oska
-	
-	//Napisz metodê która wyswietli unikalne imiona
-	
-	//Zwroc liste imion które sa dluzsze niz 5 znakow o parzystej dlugosci
-	
-	//Zwroc liczbe s³ow ktore sa zlozone z samych whitespaców np spacji  
-	
-	//Napisz metode ktora przyjmuje jako parametr liste Stringow oraz liste intow (tej samej dlugosci obie listy)
-		//Metoda ma zwrocic liste Stringow z pirwszej listy ktorych dlugosc odpowiada liczbom na 2 liscie
-		// Ania Krzys Tomek Kasia Jan
-		// 4 2 5 8 3
-		//Ania Tomek Jan
-	
 
-	// Napisz metode ktora przyjmuje jako parametr liste tablic Stringow i oblicza
-	// sume dlugosci wszystkich Stringów
+	public static List<Integer> konczySieNa(List<Integer> lista, int x) {
+		List<Integer> konczaceSieNa = new ArrayList<>();
+
+		for (int i = 0; i < lista.size(); i++) {
+
+			if (lista.get(i) % 10 == x) {
+				konczaceSieNa.add(lista.get(i));
+
+			}
+
+		}
+		return konczaceSieNa;
+	}
+
+// Wyœwietl ile razy ktorekolwiek imie zosta³o powtórzone Np dla imion ania piotr ania tomek krzys tomek ania program
+// powinien wypisac 3, bo byly 3 potworki
+
+	public static int IleRazyPowtorzone(List<String> lista) {
+		
+		List<String> imionaPowtorzone = new ArrayList<>();
+
+		for (int i = 0; i < lista.size(); i++) {
+			if (!imionaPowtorzone.contains(lista.get(i))) {
+				imionaPowtorzone.add(lista.get(i));
+			}
+		} 
+		return lista.size() - imionaPowtorzone.size();
+	}
+
+
+// Wyswietl ile razy we wszystkich imionach by³a u¿yta samog³oska
+
+	public static int ileSamoglosek(List<String> lista) {
+		int licznik = 0;
+
+		for (int i = 0; i < lista.size(); i++) {
+			if (lista.get(i).contains("a")) {
+				licznik++;
+			}
+			if (lista.get(i).contains("e")) {
+				licznik++;
+			}
+			if (lista.get(i).contains("i")) {
+				licznik++;
+			}
+			if (lista.get(i).contains("o")) {
+				licznik++;
+			}
+			if (lista.get(i).contains("u")) {
+				licznik++;
+			}
+		}
+		return licznik;
+		// ale to chyba nie policzy jak beda 2 samogloski w jednym imieniu
+
+	}
+
+// Napisz metodê która wyswietli unikalne imiona
+
+// Zwroc liste imion które sa dluzsze niz 5 znakow o parzystej dlugosci
+
+	public static List<String> dluzszeOdIParzyste(List<String> lista, int dlugosc) {
+		String imie = "";
+		List<String> imiona = new ArrayList<>();
+
+		for (int i = 0; i < lista.size(); i++) {
+			imie = lista.get(i);
+			if (imie.length() > dlugosc && imie.length() % 2 == 0) {
+				imiona.add(imie);
+			}
+		}
+		return imiona;
+	}
+
+// Zwroc liczbe s³ow ktore sa zlozone z samych whitespaców np spacji
+
+	public static int liczbaWhitespace(List<String> lista) {
+		int licznik = 0;
+		for (int i = 0; i < lista.size(); i++) {
+			if (lista.get(i).isBlank() == true) {
+				licznik++;
+			}
+		}
+		return licznik;
+	}
+
+// Napisz metode ktora przyjmuje jako parametr liste Stringow oraz liste intow
+// (tej samej dlugosci obie listy)
+// Metoda ma zwrocic liste Stringow z pirwszej listy ktorych dlugosc odpowiada
+// liczbom na 2 liscie
+// Ania Krzys Tomek Kasia Jan
+// 4 2 5 8 3
+// Ania Tomek Jan
+
+	public static List<String> dlugoscRownaStringowi(List<String> listaImion, List<Integer> listaIntow) {
+		List<String> listaPasujacych = new ArrayList<>();
+
+		for (int i = 0; i < listaImion.size(); i++) {
+
+			if (listaImion.get(i).length() == listaIntow.get(i)) {
+				listaPasujacych.add(listaImion.get(i));
+			}
+		}
+		return listaPasujacych;
+	} //czy da sie jakos ograniczyc wielkosc ArrayList?
+
+// Napisz metode ktora przyjmuje jako parametr liste tablic Stringow i oblicza
+// sume dlugosci wszystkich Stringów
+
+	public static int dlugoscStringow(List<String> lista) {
+		int dlugosc = 0;
+
+		for (int i = 0; i < lista.size(); i++) {
+
+			dlugosc += lista.get(i).length();
+		}
+		return dlugosc;
+	}
+
 }
