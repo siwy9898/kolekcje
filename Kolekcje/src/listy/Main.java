@@ -1,3 +1,4 @@
+package listy;
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 
@@ -16,6 +17,9 @@ public class Main {
 		lista.add(3);
 		lista.add(4);
 		lista.add(5);
+
+		odwrotnaListaBez(lista);
+		System.out.println(lista);
 
 		List<Integer> listaInt = new ArrayList<>(Arrays.asList(1, 5, 21, 27, 67, 10));
 
@@ -36,9 +40,9 @@ public class Main {
 		listaImion2.add("Tomek");
 		listaImion2.add("Tomek");
 		listaImion2.add("Ania");
-		//listaImion2.add("    ");
-		//listaImion2.add(" ");
-		//listaImion2.add("    ");
+		// listaImion2.add(" ");
+		// listaImion2.add(" ");
+		// listaImion2.add(" ");
 
 		listaImion.addAll(listaImion2);
 
@@ -76,8 +80,8 @@ public class Main {
 
 		System.out.println(konczySieNa(listaInt, 7));
 		System.out.println(dluzszeOdIParzyste(listaImion2, 3));
-		System.out.println(dlugoscStringow(listaImion2));
-		//System.out.println(dlugoscRownaStringowi(listaImion2, intyDoImion));
+		//System.out.println(dlugoscStringow(listaImion2));
+		// System.out.println(dlugoscRownaStringowi(listaImion2, intyDoImion));
 		System.out.println(liczbaWhitespace(listaImion2));
 		System.out.println(ileSamoglosek(listaImion2));
 		System.out.println(IleRazyPowtorzone(listaImion2));
@@ -279,9 +283,14 @@ public class Main {
 	// metoda ma odwrocic liste, nie ma nic zwracac, nie mozna wykorzystywac innych
 	// list/tablic
 
+	// 1 2 3 4 5
 	public static void odwrotnaListaBez(List<Integer> lista) {
 
-		Collections.sort(lista, Comparator.reverseOrder());
+		for (int i = 0; i < lista.size() / 2; i++) {
+			int temp = lista.get(i);
+			lista.set(i, lista.get(lista.size() - 1 - i));
+			lista.set(lista.size() - 1 - i, temp);
+		}
 
 	}
 	// majac liste intow zwróc liste intow tych ktore te ktore koncza sie na cyfre
@@ -305,42 +314,33 @@ public class Main {
 // powinien wypisac 3, bo byly 3 potworki
 
 	public static int IleRazyPowtorzone(List<String> lista) {
-		
+
 		List<String> imionaPowtorzone = new ArrayList<>();
 
 		for (int i = 0; i < lista.size(); i++) {
 			if (!imionaPowtorzone.contains(lista.get(i))) {
 				imionaPowtorzone.add(lista.get(i));
 			}
-		} 
+		}
 		return lista.size() - imionaPowtorzone.size();
 	}
-
 
 // Wyswietl ile razy we wszystkich imionach by³a u¿yta samog³oska
 
 	public static int ileSamoglosek(List<String> lista) {
 		int licznik = 0;
 
-		for (int i = 0; i < lista.size(); i++) {
-			if (lista.get(i).contains("a")) {
-				licznik++;
-			}
-			if (lista.get(i).contains("e")) {
-				licznik++;
-			}
-			if (lista.get(i).contains("i")) {
-				licznik++;
-			}
-			if (lista.get(i).contains("o")) {
-				licznik++;
-			}
-			if (lista.get(i).contains("u")) {
-				licznik++;
+		List<Character> listaCharow = new ArrayList<>(Arrays.asList('a', 'e', 'i', 'o', 'u', 'y', '¹', 'ê', 'ó'));
+
+		for (String str : lista) {
+			for (int i = 0; i < str.length(); i++) {
+				if (listaCharow.contains(str.charAt(i))) {
+					licznik++;
+
+				}
 			}
 		}
 		return licznik;
-		// ale to chyba nie policzy jak beda 2 samogloski w jednym imieniu
 
 	}
 
@@ -366,7 +366,7 @@ public class Main {
 	public static int liczbaWhitespace(List<String> lista) {
 		int licznik = 0;
 		for (int i = 0; i < lista.size(); i++) {
-			if (lista.get(i).isBlank() == true) {
+			if (lista.get(i).isBlank()) {
 				licznik++;
 			}
 		}
@@ -391,18 +391,20 @@ public class Main {
 			}
 		}
 		return listaPasujacych;
-	} //czy da sie jakos ograniczyc wielkosc ArrayList?
+	} // czy da sie jakos ograniczyc wielkosc ArrayList?
 
 // Napisz metode ktora przyjmuje jako parametr liste tablic Stringow i oblicza
 // sume dlugosci wszystkich Stringów
 
-	public static int dlugoscStringow(List<String> lista) {
+	public static int dlugoscStringow(List<String[]> lista) {
 		int dlugosc = 0;
 
-		for (int i = 0; i < lista.size(); i++) {
-
-			dlugosc += lista.get(i).length();
+		for (String[] tab : lista) {
+			for (String str : tab) {
+				dlugosc+=str.length();
+			}
 		}
+		
 		return dlugosc;
 	}
 
