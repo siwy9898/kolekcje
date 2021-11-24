@@ -1,5 +1,6 @@
 package sety_mapy;
 
+import java.security.DrbgParameters.NextBytes;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -14,6 +15,20 @@ public class Main {
 		Set<Integer> hashSet = new HashSet<>();
 		hashSet.addAll(Arrays.asList(3, 5, 4, -3, 5, 5, 8, 1, 0));
 		System.out.println(hashSet);
+
+		// Napisz program, ktory losuje liczby w duzym lotku bez powtorzen, zakres liczb
+		// 1-45
+
+		Set<Integer> wynikLotka = new HashSet<>();
+		Random generator = new Random();
+
+		for (int i = 0; i < 6; i++) {
+			wynikLotka.add(generator.nextInt(44) + 1);
+		}
+
+		for (int i : wynikLotka) {
+			System.out.println("Lotek " + i);
+		}
 
 		// LinkedHashSet
 		// zachowuje kolejnosc elementow zgodna z kolejnoscia dodawania,akceptuje
@@ -51,14 +66,26 @@ public class Main {
 
 		// TreeMap
 		// Sortuje elementy po kluczach, ale nie akceptuje wartosci null
-		Map<String, Integer> treeMap = new TreeMap<>();
+		Map<String, Integer> treeMap = new LinkedHashMap<>();
 		treeMap.put("jeden", 1);
 		treeMap.put("cztery", 4);
 		treeMap.put("dwa", 2);
 		treeMap.put("trzy", 3);
 		System.out.println(treeMap);
-		
-		System.out.println("Get or default: " + treeMap.getOrDefault("asdasd", 0));
+
+		Map<Integer, String> mapaImion = new HashMap<>();
+		mapaImion.put(4, "adam");
+		mapaImion.put(2, "adam");
+		mapaImion.put(22, "adam");
+		mapaImion.put(3, "adam");
+		mapaImion.put(7, "adam");
+		mapaImion.put(14, "adam");
+
+		parzysteNaParzyste(mapaImion);
+		System.out.println("------------------");
+		System.out.println(mapaImion);
+		System.out.println("------------------");
+		System.out.println("Get or default: " + treeMap.getOrDefault("trzy", 0));
 
 		// zwraca wartoc dla danego klucza
 		System.out.println(treeMap.get("jeden"));
@@ -111,35 +138,43 @@ public class Main {
 			slowaDlugosc.put(str, str.length());
 		}
 	}
+
 	// Napisz metoda która dodaje s³owa do mapy. Kluczem maja byc kolejen liczby
 	// naturalne zaczynajac od 0
-	public static void slowaDoMapy (Map<Integer, String> mapa, String slowo) {
-		 mapa.put(mapa.size(), slowo);
+	public static void slowaDoMapy(Map<Integer, String> mapa, String slowo) {
+		mapa.put(mapa.size(), slowo);
 	}
-	
+
 	// Napisz metode ktora pozwala dodawac do mapy kolejne wyrazy. Na koncu ma
 	// wyswietlic ile razy jaki element byl dodany
 	// pies kot pies ryba kot pies
 	// pies 3, ryba 1, kot 2
-	public static void ileRazy (Map<String, Integer> mapa, String slowo) {
+	public static void ileRazy(Map<String, Integer> mapa, String slowo) {
 		mapa.put(slowo, mapa.getOrDefault(slowo, 0) + 1);
 	}
-	
-	
-	// Napisz program, ktory losuje liczby w duzym lotku bez powtorzen, zakres liczb 1-45
-	
+
 	// napisz metode ktora przyjmuje Mape<Integer, String>, zamien wartosci ktorych
 	// klucze sa parzystych wartosci
 	// na s³owo "parzyste"
-	
-	// Napisz program, ktory symuluje dzialanie slownika
-	// polsko-angielskiego. Przyk³adowy program: Podaj slowko po Polsku: mama Slowko
-	// po Angielsku to mother. Program dziala dopoki uzytkownik nie zrezygnuje
-	// (cancel)
-	
-	// W systemie przechowujemy nazwe klasy (szkolnej, np 1a, 2b) oraz listê osób
-		// (same nazwiska jako Stringi) które uczeszczaja do klasy.
-		// 1) Napisz metode ktora zwraca liste osob o najdluzszych nazwiskach z kazdej klasy
-		// 2) Napisz metode która zwraca osobe o najdluzszym nazwisku ze wzystkich klas
 
+	public static void parzysteNaParzyste(Map<Integer, String> mapa) {
+
+		for (Entry<Integer, String> entry : mapa.entrySet()) {
+			if (entry.getKey() % 2 == 0) {
+				mapa.replace(entry.getKey(), "parzysta");
+			}
+		}
+
+	}
 }
+
+// Napisz program, ktory symuluje dzialanie slownika
+// polsko-angielskiego. Przyk³adowy program: Podaj slowko po Polsku: mama Slowko
+// po Angielsku to mother. Program dziala dopoki uzytkownik nie zrezygnuje
+// (cancel)
+
+// W systemie przechowujemy nazwe klasy (szkolnej, np 1a, 2b) oraz listê osób
+// (same nazwiska jako Stringi) które uczeszczaja do klasy.
+// 1) Napisz metode ktora zwraca liste osob o najdluzszych nazwiskach z kazdej
+// klasy
+// 2) Napisz metode która zwraca osobe o najdluzszym nazwisku ze wzystkich klas
